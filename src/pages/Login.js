@@ -10,6 +10,28 @@ const Login = () => {
 
     const  [showPassword,setshowPassword] = useState(false);
 
+    const [data, setData] =useState({
+        email : "",
+        password :""
+})
+
+const handleOnChange=(e)=>{
+    const {name ,value}= e.target
+
+    setData((preve)=>{
+        return {
+            ...preve,
+        [name]:value
+        }
+    })
+}
+
+const handleSubmit = (e)=>{
+    e.preventDefault()
+}
+
+console.log(data)
+
   return (
      <section id='login'>
         <div className='mx-auto container p-4 '>
@@ -17,18 +39,26 @@ const Login = () => {
                 <div className='w-20 h-20 mx-auto '>
                     <img src= {loginIcons} alt='login icon' />
                 </div>
-                <form>
+                <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
                     <div className='grid'>
                         <label>Email:</label>
                         <div className='bg-slate-100 p-2'>
-                        <input className='h-full w-full outline-none bg-transparent' type='email' placeholder='Enter Email' />
+                        <input className='h-full w-full outline-none bg-transparent' type='email' placeholder='Enter Email'
+                        name= 'email'
+                        value={data.email}
+                        onChange={handleOnChange}
+                        />
                         </div>
                     </div>
 
                     <div>
                         <label>Password:</label>
                         <div className='bg-slate-100 p-2 flex'>
-                        <input className='h-full w-full outline-none bg-transparent' type={showPassword? "text":"password"} placeholder='Enter Password' />
+                        <input className='h-full w-full outline-none bg-transparent' type={showPassword? "text":"password"} placeholder='Enter Password'
+                        
+                        onChange={handleOnChange}
+                        name='password'
+                        value={data.password}/>
                         <div className='cursor-pointer text-xl' 
                           onClick={()=> setshowPassword((preve)=>!preve)}>
                             <span >
