@@ -6,6 +6,20 @@ const SummaryApi= {
         url:`${backenddomain}/api/signup`,
         method:"POST",
 
+    },
+    signIn:{
+        url:`${backenddomain}/api/signin`,
+        method:"POST",
+
+
+    },
+    current_user:{
+        url:`${backenddomain}/api/user-details`,
+        method:"GET",
+    },
+    logout_user:{
+        url:`${backenddomain}/api/userLogout`,
+        method:"get"
     }
 }
 
