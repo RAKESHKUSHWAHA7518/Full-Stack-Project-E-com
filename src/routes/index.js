@@ -4,6 +4,9 @@
   import Login from "../pages/Login";
 import ForgotPassword from "../pages/ForgotPassword";
 import SignUp from "../pages/SignUp";
+import Adminpanel from "../pages/Adminpanel";
+import AllUsers from "../pages/AllUsers";
+import AllProducts from "../pages/AllProducts";
 
   const router = createBrowserRouter([
     {
@@ -26,6 +29,21 @@ import SignUp from "../pages/SignUp";
             {
                 path: 'Sign-up',
                 element: <SignUp/>
+            },
+            {
+                path:'admin-panel',
+                element:<Adminpanel/>,
+                children:[
+                    {
+                        path:'all-users',
+                        element:<AllUsers/>
+
+                    },
+                    {
+                        path:'All-product',
+                        element:<AllProducts/>
+                    }
+                ]
             }
         ]
     }

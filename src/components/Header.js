@@ -3,17 +3,20 @@ import Logo from './Logo'
 import { GoSearch } from "react-icons/go";
 import { FaUserCircle  } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import { setUserDetails } from '../store/userSlice';
 import { store } from '../store/store';
+import ROLE from '../common/role';
 
 
 const Header = () => {
 
   const dispatch= useDispatch()
+
+  const navigate =useNavigate()
 
   const user =useSelector(state=>state?.user?.user)
 
@@ -33,6 +36,8 @@ const Header = () => {
 
     if(data.success){
       toast.success(data.message)
+      navigate('/login')
+
       dispatch(setUserDetails(null))
 
     }
@@ -64,7 +69,12 @@ const Header = () => {
       <div className='flex items-center  gap-6'>
 
      <div className='relative group flex justify-center'>
-        <div className='text-3xl   cursor-pointer    ' onClick={()=>setMenuDisplay(preve=>!preve)}>
+
+      {
+
+        user?._id && (
+
+          <div className='text-3xl   cursor-pointer    ' onClick={()=>setMenuDisplay(preve=>!preve)}>
 
          {
           user?.profilePic ? (
@@ -76,13 +86,25 @@ const Header = () => {
         }
       
          </div>
+
+        )
+      }
+        
          {
           menuDisplay && (
 
             <div className=' absolute bg-white bottom-0 top-11 h-fit shadow-lg p-2'>
           <nav>
-            <Link to ={'/admin-panel'} className='whitespace-nowrap hover:bg-slate-100 p-2'>Admin Panel</Link>
-          </nav>
+            {
+              user?.role===ROLE.ADMIN &&(
+                <Link to ={'/admin-panel/all-users'} className='whitespace-nowrap hover:bg-slate-100 p-2 hidden md:block' onClick={()=>setMenuDisplay(preve=>!preve)}>Admin Panel</Link>
+         
+
+              )
+            }
+
+            
+            </nav>
          </div>
 
           )
