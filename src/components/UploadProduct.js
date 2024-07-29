@@ -5,9 +5,16 @@ import { IoCloudUploadSharp } from "react-icons/io5";
 import uploadimage from '../helpers/uploadimage';
 import Displayimage from './Displayimage';
 import { MdDelete } from "react-icons/md";
+import SummaryApi from '../common'
+// import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const UploadProduct = ({
-    onclose
+    onclose,
+    fetchData
 }) => {
 
     const [data ,setData]= useState({
@@ -71,11 +78,51 @@ const UploadProduct = ({
 
     }
 
+
+     
+
     // Upload Product
 
-    const handleSubmit=(e)=>{
+    const handleSubmit= async(e)=>{
       e.preventDefault()
       console.log("data",data);
+      
+      const response = await fetch(SummaryApi.uploadProduct.url,{
+        method: SummaryApi.uploadProduct.method,
+        credentials: 'include',
+        headers:{
+          'content-type': 'application/json'
+        },
+        body:JSON.stringify(data)
+      })
+
+      const responseData = await response.json()
+
+       console.log(responseData);
+
+    //    if(responseData.success){
+    // toast.success(responseData?.message)
+
+    //    }
+
+    if (responseData.success) {
+      toast.success(responseData.message);
+      onclose();
+      fetchData()
+
+  }
+
+  if (responseData.error) {
+      toast.error(responseData.message);
+  }
+      // if(responseData.success){
+      //   toast.success(responseData.message)
+      //   onclose()
+      // }
+      // if(responseData.error){
+      //   toast.error(responseData?.message)
+      // }
+
 
     }
 
@@ -83,6 +130,7 @@ const UploadProduct = ({
     <div className='fixed bg-slate-400 bg-opacity-40 top-0 right-0 bottom-0 left-0 flex justify-center items-center'>
       <div className='bg-white p-4 rounded  w-full max-w-sm  lg:max-w-2xl h-full max-h-[50%] lg:max-h-[80%] overflow-hidden'>
         <div className='flex justify-between items-center pb-3'>
+        
             <h2 className='font-bold text-lg'>  UploadProduct</h2>
             <div className='text-3xl ml-auto w-fit hover:text-red-500 cursor-pointer' onClick={ onclose}>
             <IoCloseSharp />
@@ -97,7 +145,8 @@ const UploadProduct = ({
          placeholder='Enter product name'
           value={data.productName} 
           onChange={handleOnChange}
-          className='p-2 bg-slate-100 border rounded'/> 
+          className='p-2 bg-slate-100 border rounded'
+          required/> 
 
         <label htmlFor='brandName'>Brand Name:</label>
         <input
@@ -107,7 +156,8 @@ const UploadProduct = ({
          placeholder='Enter Brand name'
           value={data.brandName} 
           onChange={handleOnChange}
-          className='p-2 bg-slate-100 border rounded'/> 
+          className='p-2 bg-slate-100 border rounded'
+          required/> 
 
         <label htmlFor='category'>Category Name:</label>
          <select value={data.category} name='category' onChange={handleOnChange} className='p-2 bg-slate-100 border rounded'>
@@ -169,7 +219,8 @@ const UploadProduct = ({
          placeholder='Enter price'
           value={data.price} 
           onChange={handleOnChange}
-          className='p-2 bg-slate-100 border rounded'/>
+          className='p-2 bg-slate-100 border rounded'
+          required/>
 
 
 <label htmlFor='sellingPrice' className='mt-3'>Selling Price:</label>
@@ -180,7 +231,8 @@ const UploadProduct = ({
          placeholder='Enter selling price'
           value={data.sellingPrice} 
           onChange={handleOnChange}
-          className='p-2 bg-slate-100 border rounded'/>
+          className='p-2 bg-slate-100 border rounded'
+          required/>
 
 <label htmlFor='description' className='mt-3'>Description:</label>
 <textarea className='h-28 bg-slate-100 border resize-none p-1' placeholder='Enter Product Description' onChange={handleOnChange} name='description' value={data.description} rows={3}>
