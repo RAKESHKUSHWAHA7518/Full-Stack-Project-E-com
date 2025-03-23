@@ -8,6 +8,7 @@ import VerticalCardProduct from '../components/VerticalCardProduct';
 // import CategroyWiseProductDisplay from '../components/CategoryWiseProductDisplay';
 import addToCart from '../helpers/addToCart';
 import Context from '../context';
+import CategroyWiseProductDisplay from '../components/CategroyWiseProductDisplay';
 
 const ProductDetails = () => {
   const [data,setData] = useState({
@@ -59,7 +60,7 @@ const ProductDetails = () => {
 
   useEffect(()=>{
     fetchProductDetails()
-  },[])
+  },[params])
 
   const handleMouseEnterProduct = (imageURL)=>{
     setActiveImage(imageURL)
@@ -222,11 +223,11 @@ const ProductDetails = () => {
 
 
 
-      {/* {
+      {
         data.category && (
           <CategroyWiseProductDisplay category={data?.category} heading={"Recommended Product"}/>
         )
-      } */}
+      }
      
 
 

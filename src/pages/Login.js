@@ -19,7 +19,7 @@ const Login = () => {
 })
 
 const navigate = useNavigate()
-  const {fetchUserDetails} =  useContext(Context);
+  const {fetchUserDetails,fetchUserAddToCart} =  useContext(Context);
 
    console.log("Rakesh:",fetchUserDetails());
   
@@ -56,6 +56,7 @@ const handleSubmit = async(e)=>{
         navigate('/')
 
         fetchUserDetails()
+        fetchUserAddToCart()
 
     }
 

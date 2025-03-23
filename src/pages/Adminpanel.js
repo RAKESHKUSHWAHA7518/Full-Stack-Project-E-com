@@ -12,8 +12,11 @@ import ROLE from '../common/role';
 
     useEffect(()=>{
 
-      if(user?.role!==ROLE.ADMIN){
-        navigate('/')
+      // if(user?.role!==ROLE.SUPERADMIN  ){
+      //   navigate('/')
+      // }
+      if (user?.role !== ROLE.SUPERADMIN && user?.role !== ROLE.ADMIN) {
+        navigate('/');
       }
 
 

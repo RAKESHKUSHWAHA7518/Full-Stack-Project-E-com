@@ -4,6 +4,8 @@ import { toast } from 'react-toastify'
  import moment from 'moment'
  import { MdEdit } from "react-icons/md";
 import ChangeUsersRole from '../components/ChangeUsersRole';
+import { useSelector } from 'react-redux';
+import ROLE from '../common/role';
  
   
 const AllUsers = () => {
@@ -18,6 +20,10 @@ const AllUsers = () => {
         role: '',
         _id:'',
     })
+
+    const user =useSelector(state=>state?.user?.user)
+
+    // const navigate= useNavigate();
 
     const fetchAllUsers = async () => {
         const fetchData = await fetch(SummaryApi.allUser.url,{
@@ -42,6 +48,7 @@ const AllUsers = () => {
 
     }
 
+    
 
     useEffect(()=>{
 
@@ -60,7 +67,9 @@ const AllUsers = () => {
             <th>Email:</th>
             <th>Role:</th>
             <th>Created Date:</th>
+            {user?.role===ROLE.SUPERADMIN &&(
             <th>Action</th>
+            )}
             </tr>
         </thead>
         <tbody className='pb-4 bg-gray-100'>
@@ -73,6 +82,7 @@ const AllUsers = () => {
                         <td>{el?.email}</td>
                         <td>{el?.role}</td>
                         <td>{moment(el?.createdAt).format('l')}</td>
+                        {user?.role===ROLE.SUPERADMIN &&(
                         <td>
                          <button className='bg-green-100 p-2 rounded-full cursor-pointer hover:bg-green-800 hover:text-white'
                          onClick={()=>
@@ -83,6 +93,7 @@ const AllUsers = () => {
                             }
                             
                             }><MdEdit /></button>   </td>
+                        )}
                     </tr>
                 )
 

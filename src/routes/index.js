@@ -9,6 +9,8 @@ import AllUsers from "../pages/AllUsers";
 import AllProducts from "../pages/AllProducts";
 import CategoryProduct from "../pages/CategoryProduct";
 import ProductDetails from "../pages/ProductDetails";
+import Cart from "../pages/Cart";
+import SearchProduct from "../pages/SearchProduct";
 
   const router = createBrowserRouter([
     {
@@ -31,6 +33,14 @@ import ProductDetails from "../pages/ProductDetails";
             {
                 path: 'Sign-up',
                 element: <SignUp/>
+            },
+            {
+                path: 'cart',
+                element: <Cart/>
+            },
+            {
+                path : "search",
+                element : <SearchProduct/>
             },
             {
                 path: 'product-category',
